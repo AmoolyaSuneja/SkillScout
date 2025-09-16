@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SkillScout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <meta name="description" content="Find the best and latest learning resources for any skill.">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <div class="brand">
+                <div class="logo">🎯</div>
+                <h1>SkillScout</h1>
+            </div>
+            <p>Learn anything. Type a skill and get curated, fresh resources.</p>
+            <div class="suggested" id="suggested">
+                <button data-skill="public speaking">Public Speaking</button>
+                <button data-skill="photography">Photography</button>
+                <button data-skill="cooking">Cooking</button>
+                <button data-skill="python">Python</button>
+                <button data-skill="guitar">Guitar</button>
+            </div>
+        </header>
+        <section class="search">
+            <form id="search-form" class="searchbar">
+                <input id="skill" type="text" placeholder="e.g. Public speaking, Guitar, Cooking, React" required>
+                <div class="filters">
+                    <select id="type">
+                        <option value="">All types</option>
+                        <option value="course">Courses</option>
+                        <option value="video">Videos</option>
+                        <option value="article">Articles</option>
+                        <option value="book">Books</option>
+                        <option value="roadmap">Roadmaps</option>
+                    </select>
+                    <select id="price">
+                        <option value="">Free + Paid</option>
+                        <option value="free">Free</option>
+                        <option value="paid">Paid</option>
+                    </select>
+                </div>
+                <button type="submit" class="primary">Search</button>
+            </form>
+        </section>
+        <section id="status" class="status"></section>
+        <section id="results" class="results"></section>
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <span>Finding the best resources…</span>
+        </div>
+        <footer>
+            <small>Works with or without Tavily. Add `TAVILY_API_KEY` for better results.</small>
+        </footer>
+    </div>
+    <script src="/script.js"></script>
+</body>
+</html>
+
+
