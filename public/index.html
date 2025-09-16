@@ -11,24 +11,29 @@
     <meta name="description" content="Find the best and latest learning resources for any skill.">
 </head>
 <body>
-    <div class="container">
-        <header class="hero">
-            <div class="brand">
-                <div class="logo">🎯</div>
-                <h1>SkillScout</h1>
+    <div class="app-shell">
+        <nav class="topbar">
+            <div class="brand-left">
+                <div class="logo">⟡</div>
+                <div class="brand-text">SkillScout</div>
             </div>
-            <p>Learn anything. Type a skill and get curated, fresh resources.</p>
-            <div class="suggested" id="suggested">
-                <button data-skill="public speaking">Public Speaking</button>
-                <button data-skill="photography">Photography</button>
-                <button data-skill="cooking">Cooking</button>
-                <button data-skill="python">Python</button>
-                <button data-skill="guitar">Guitar</button>
+            <div class="links">
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a href="#terms">Terms</a>
             </div>
-        </header>
-        <section class="search">
-            <form id="search-form" class="searchbar">
-                <input id="skill" type="text" placeholder="e.g. Public speaking, Guitar, Cooking, React" required>
+        </nav>
+
+        <section class="hero full">
+            <div class="bg-orbs">
+                <div class="orb orb-a"></div>
+                <div class="orb orb-b"></div>
+                <div class="orb orb-c"></div>
+            </div>
+            <h1 class="hero-title">Learn any skill. Instantly.</h1>
+            <p class="hero-sub">Type a skill and discover curated resources with a futuristic twist.</p>
+            <form id="search-form" class="searchbar glass">
+                <input id="skill" type="text" placeholder="Type a skill…" autocomplete="off" required>
                 <div class="filters">
                     <select id="type">
                         <option value="">All types</option>
@@ -44,17 +49,35 @@
                         <option value="paid">Paid</option>
                     </select>
                 </div>
-                <button type="submit" class="primary">Search</button>
+                <button type="submit" class="primary glow">Search</button>
             </form>
+            <div class="suggested" id="suggested">
+                <button data-skill="public speaking">Public Speaking</button>
+                <button data-skill="guitar">Guitar</button>
+                <button data-skill="graphic design">Graphic Design</button>
+                <button data-skill="web development">Web Development</button>
+                <button data-skill="cooking">Cooking</button>
+            </div>
         </section>
-        <section id="status" class="status"></section>
-        <section id="results" class="results"></section>
-        <div id="loading" class="loading hidden">
-            <div class="spinner"></div>
-            <span>Finding the best resources…</span>
-        </div>
-        <footer>
-            <small>Works with or without Tavily. Add `TAVILY_API_KEY` for better results.</small>
+
+        <section class="container">
+            <section id="status" class="status"></section>
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <span>Finding the best resources…</span>
+            </div>
+            <section id="results" class="results"></section>
+        </section>
+
+        <footer class="site-footer" id="about">
+            <div class="container footer-inner">
+                <div>© <span id="year"></span> SkillScout</div>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#terms">Terms</a>
+                </div>
+            </div>
         </footer>
     </div>
     <script src="/script.js"></script>

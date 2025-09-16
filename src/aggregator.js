@@ -2,13 +2,32 @@ const axios = require('axios');
 const { getDb } = require('./db');
 
 // Helper: normalize resource record
+function unwrapDuckDuckGoUrl(possibleDuckUrl) {
+    try {
+        const u = new URL(possibleDuckUrl);
+        if (u.hostname.endsWith('duckduckgo.com')) {
+            const uddg = u.searchParams.get('uddg') || u.searchParams.get('u');
+            if (uddg) return decodeURIComponent(uddg);
+        }
+        if (u.hostname === 'external-content.duckduckgo.com') {
+            // Skip proxied cache links; they are not useful destinations
+            return '';
+        }
+        return possibleDuckUrl;
+    } catch {
+        return possibleDuckUrl;
+    }
+}
+
 function normalizeResource(skill, item) {
     const now = Date.now();
+    const cleanUrl = unwrapDuckDuckGoUrl(item.url || '');
+    if (!cleanUrl) return null;
     return {
         skill_name: skill.toLowerCase(),
         title: item.title?.slice(0, 300) || 'Untitled',
-        url: item.url,
-        source: item.source || extractDomain(item.url),
+        url: cleanUrl,
+        source: item.source || extractDomain(cleanUrl),
         type: inferTypeFromTitleOrUrl(item.title, item.url),
         price: inferPrice(item),
         description: item.description?.slice(0, 1000) || '',
@@ -94,7 +113,7 @@ async function fetchAndStoreResources(skill) {
     const db = getDb();
     const lower = skill.toLowerCase();
     const items = await searchWeb(skill);
-    const normalized = items.map(it => normalizeResource(lower, it));
+    const normalized = items.map(it => normalizeResource(lower, it)).filter(Boolean).filter(r => r.source && !/duckduckgo\.com$/.test(r.source));
     const insert = db.prepare(`
         INSERT OR IGNORE INTO resources (
             skill_name, title, url, source, type, price, description, rating, num_reviews, published_at, fetched_at

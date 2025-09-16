@@ -1,16 +1,18 @@
 const form = document.getElementById('search-form');
 const resultsEl = document.getElementById('results');
 const statusEl = document.getElementById('status');
+document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
 
 function resourceCard(r){
-    const price = r.price ? `<span class="badge">${r.price}</span>` : '';
-    const type = r.type ? `<span class="badge">${r.type}</span>` : '';
-    const source = r.source ? `<span class="badge">${r.source}</span>` : '';
+    const price = r.price ? `<span class="badge">${escapeHtml(r.price)}</span>` : '';
+    const type = r.type ? `<span class="badge">${escapeHtml(r.type)}</span>` : '';
+    const source = r.source ? `<span class="badge">${escapeHtml(r.source)}</span>` : '';
     return `
     <div class="card">
         <h3><a href="${r.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.title)}</a></h3>
         <div class="meta">${price}${type}${source}</div>
         <div class="desc">${escapeHtml(r.description || '')}</div>
+        <a class="visit" href="${r.url}" target="_blank" rel="noopener noreferrer">Visit</a>
     </div>`;
 }
 
@@ -59,5 +61,11 @@ document.getElementById('suggested')?.addEventListener('click', (e) => {
         search(skill);
     }
 });
+
+// Animated placeholder cycling
+const examples = ['Web Development…','Guitar…','Graphic Design…','Public Speaking…','Photography…','Cooking…'];
+const inputEl = document.getElementById('skill');
+let idx = 0;
+setInterval(()=>{ inputEl.placeholder = examples[idx % examples.length]; idx++; }, 2200);
 
 
